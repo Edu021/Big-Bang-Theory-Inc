@@ -2,6 +2,18 @@
 As cores de fundo devem alternar para facilitar a leitura. 
 Um botão com a função de imprimir deve ser adicionado. -->
 
+<?php
+    // Puxando pedidos do banco e colocando tudo em $pedidos
+    include("./conexao.php");
+    
+    $resultado = mysqli_query($conexao, 'select o.order_id, u.user_name, o.order_total, o.order_date from orders o, user u where o.order_user_id = u.user_id;');
+    while($linha = $resultado->fetch_object()) {
+        foreach($linha as $chave => $coluna) {
+            $coluna_array[$chave] = utf8_encode($coluna);
+        }
+        $pedidos[] =  $coluna_array;
+    }
+?>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
@@ -39,7 +51,20 @@ Um botão com a função de imprimir deve ser adicionado. -->
             <th>TOTAL</th>
             <th>DATA</th>
         </tr>
-
+        <?php
+            // Adicionando linhas à tabela com valores de $pedidos
+            foreach($pedidos as $pedido) {
+                
+                $linha_tabela = 
+                "<tr class='alternada'>
+                <td>$pedido[order_id]</td>
+                <td>$pedido[user_name]</td>
+                <td>$pedido[order_total]</td>
+                <td>$pedido[order_date]</td>
+                </tr>";
+                echo $linha_tabela;
+            }
+        ?>
     </table>
 </body>
 </html>
