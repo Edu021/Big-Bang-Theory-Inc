@@ -29,6 +29,15 @@ Caso a média seja inferior a 3.000, a linha deve ficar vermelha, se for maior, 
         padding: 8px;
         text-align: left;
     }
+    .red {
+        background-color: red;
+    }
+    .grey {
+        background-color: grey;
+    }
+    .green {
+        background-color: green;
+    }
 </style>
 <body>
     <h1>Pedidos</h1>
@@ -46,7 +55,7 @@ Caso a média seja inferior a 3.000, a linha deve ficar vermelha, se for maior, 
             foreach($pedidos as $pedido) {
                 if($pedido['order_total'] == 3000) {
                     $linha_tabela = 
-                    "<tr style='background-color: grey;'>
+                    "<tr class='grey'>
                     <td>$pedido[order_id]</td>
                     <td>$pedido[user_name]</td>
                     <td>$pedido[order_total]</td>
@@ -55,7 +64,7 @@ Caso a média seja inferior a 3.000, a linha deve ficar vermelha, se for maior, 
                     echo $linha_tabela;
                 } elseif ($pedido['order_total'] > 3000) {
                     $linha_tabela = 
-                    "<tr style='background-color: green;'>
+                    "<tr class='green'>
                     <td>$pedido[order_id]</td>
                     <td>$pedido[user_name]</td>
                     <td>$pedido[order_total]</td>
@@ -64,7 +73,7 @@ Caso a média seja inferior a 3.000, a linha deve ficar vermelha, se for maior, 
                     echo $linha_tabela;
                 } elseif ($pedido['order_total'] < 3000) {
                     $linha_tabela = 
-                    "<tr style='background-color: red;'>
+                    "<tr class='red'>
                     <td>$pedido[order_id]</td>
                     <td>$pedido[user_name]</td>
                     <td>$pedido[order_total]</td>
