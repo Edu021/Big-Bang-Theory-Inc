@@ -53,9 +53,16 @@ Nessa mesma página, insira uma forma de filtrar por um país desejado. -->
         <label for="pais">Filtrar por país:</label>
         <select name="pais" id="pais">
             <option value="todos">Todos os países</option>
-            <!-- Adicionar apenas os países existentes na tabela -->
+            <?php
+            // Adicionando país como opções com valores de $pedidos
+                foreach($pedidos as $pedido) {
+                    $opcao_select = 
+                    "<option value='$pedido[pais]'>$pedido[pais]</option>";
+                    echo $opcao_select;
+                }
+            ?>
         </select>
-        <button onclick="">Filtrar</button>
+        <button onclick="filtrarPorPais()">Filtrar</button>
     </div>
     <div class="tabela">
         <table>
@@ -63,24 +70,37 @@ Nessa mesma página, insira uma forma de filtrar por um país desejado. -->
                 <th>PAÍS</th>
                 <th>VALOR TOTAL</th>
             </tr>
-            <!-- Lógica para popular a tabela -->
             <?php
             // Adicionando linhas à tabela com valores de $pedidos
-            foreach($pedidos as $pedido) {
-                
-                $linha_tabela = 
-                "<tr class='alternada'>
-                <td>$pedido[pais]</td>
-                <td>R$ $pedido[total]</td>
-                </tr>";
-                echo $linha_tabela;
-            }
-        ?>
+                foreach($pedidos as $pedido) {
+                    $linha_tabela = 
+                    "<tr class='alternada'>
+                    <td>$pedido[pais]</td>
+                    <td>R$ $pedido[total]</td>
+                    </tr>";
+                    echo $linha_tabela;
+                }
+            ?>
         </table>
     </div>
     
     <script>
-        // Criar lógica para filtrar país
+        // Função que filtra o país da tabela escolhido pelo elemento <select>
+        function filtrarPorPais() {
+            let paisSelecionado = document.getElementById('pais').value;
+            let linhasTabela = document.querySelectorAll('.alternada');
+            
+            for(let i=0;i < linhasTabela.length; i++) {
+                // Variável com nome do país na linha atual da tabela 
+                let paisTabela = linhasTabela[i].getElementsByTagName('td')[0].textContent
+                // Comparando o campo país da tabela com o valor do país escolhido
+                if(paisTabela !== paisSelecionado && paisSelecionado !== 'todos') {
+                    linhasTabela[i].style.display = 'none';
+                } else {
+                    linhasTabela[i].style.display = '';
+                }
+            }
+        }
     </script>
 </body>
 </html>
