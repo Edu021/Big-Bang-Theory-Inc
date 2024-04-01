@@ -1,6 +1,19 @@
 <!-- 3. Desenvolva uma página que exiba a soma dos totais de venda por país. 
 Nessa mesma página, insira uma forma de filtrar por um país desejado. -->
 
+<?php
+    // Puxando pedidos do banco e colocando tudo em $pedidos
+    include("./conexao.php");
+    
+    $resultado = mysqli_query($conexao, 'select u.user_country pais, sum(o.order_total) total from orders o inner join user u on o.order_user_id = u.user_id group by u.user_country;');
+    while($linha = $resultado->fetch_object()) {
+        foreach($linha as $chave => $coluna) {
+            $coluna_array[$chave] = utf8_encode($coluna);
+        }
+        $pedidos[] =  $coluna_array;
+    }
+?>
+
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
@@ -51,7 +64,18 @@ Nessa mesma página, insira uma forma de filtrar por um país desejado. -->
                 <th>VALOR TOTAL</th>
             </tr>
             <!-- Lógica para popular a tabela -->
-
+            <?php
+            // Adicionando linhas à tabela com valores de $pedidos
+            foreach($pedidos as $pedido) {
+                
+                $linha_tabela = 
+                "<tr class='alternada'>
+                <td>$pedido[pais]</td>
+                <td>R$ $pedido[total]</td>
+                </tr>";
+                echo $linha_tabela;
+            }
+        ?>
         </table>
     </div>
     
