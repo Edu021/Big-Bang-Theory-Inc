@@ -20,6 +20,29 @@ Um botão com a função de imprimir deve ser adicionado. -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resposta 2</title>
     <style>
+        @media print {
+            h1 {
+                display: none;
+            }
+            button {
+                display: none;
+            }
+        }
+        button {
+            padding: 15px;
+            border-radius: 5px;
+            border: 0px;
+            background-color: green;
+            color: white;
+        }
+        button:hover {
+            cursor: pointer;
+        }
+        div {
+            margin-top: 15px;
+            width: 100%;
+            text-align: center;
+        }
         table {
             width: 100%;
             border-collapse: collapse;
@@ -66,5 +89,8 @@ Um botão com a função de imprimir deve ser adicionado. -->
             }
         ?>
     </table>
+    <div>
+        <button onclick="window.print()">Imprimir</button>
+    </div>
 </body>
 </html>
