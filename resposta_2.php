@@ -21,9 +21,6 @@ Um botão com a função de imprimir deve ser adicionado. -->
     <title>Resposta 2</title>
     <style>
         @media print {
-            h1 {
-                display: none;
-            }
             button {
                 display: none;
             }
